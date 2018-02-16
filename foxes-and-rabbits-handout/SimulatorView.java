@@ -16,9 +16,11 @@ import java.util.Map;
  */
 public class SimulatorView extends JFrame
 {
-    // Colors used for empty locations.
-    private static final Color EMPTY_COLOR = Color.white;
-
+    // Colors used for empty locations.]
+    
+    
+    public Color COLORR = Color.getColor("white");
+    
     // Color used for objects that have no defined color.
     private static final Color UNKNOWN_COLOR = Color.gray;
 
@@ -31,7 +33,7 @@ public class SimulatorView extends JFrame
     private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
     private FieldStats stats;
-
+    
     /**
      * Create a view of the given width and height.
      * @param height The simulation's height.
@@ -42,7 +44,7 @@ public class SimulatorView extends JFrame
         stats = new FieldStats();
         colors = new LinkedHashMap<>();
 
-        setTitle("Fox,Rabbit and Chicken Simulation");
+        setTitle("Fox and Rabbit Simulation");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         infoLabel = new JLabel("  ", JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
@@ -111,7 +113,12 @@ public class SimulatorView extends JFrame
         stats.reset();
         
         fieldView.preparePaint();
-
+        
+        if (step % 12 == 0){
+            
+            
+        }
+        
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
                 Object animal = field.getObjectAt(row, col);
@@ -119,17 +126,29 @@ public class SimulatorView extends JFrame
                     stats.incrementCount(animal.getClass());
                     fieldView.drawMark(col, row, getColor(animal.getClass()));
                 }
-                else {
-                    fieldView.drawMark(col, row, EMPTY_COLOR);
+                 
+                
+                else if (step % 24  == 0) {
+                    fieldView.drawMark(col, row, Color.white);  
+                    
+                    }
+                else if (step % 12 == 0) {
+                    
+                    fieldView.drawMark(col, row, Color.black); 
                 }
-            }
+                }
+            
         }
         stats.countFinished();
-
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
         fieldView.repaint();
     }
-
+    public boolean setDay(){
+        
+        return true;
+        
+    }
+    
     /**
      * Determine whether the simulation should continue to run.
      * @return true If there is more than one species alive.
@@ -175,7 +194,7 @@ public class SimulatorView extends JFrame
             return new Dimension(gridWidth * GRID_VIEW_SCALING_FACTOR,
                                  gridHeight * GRID_VIEW_SCALING_FACTOR);
         }
-
+        
         /**
          * Prepare for a new round of painting. Since the component
          * may be resized, compute the scaling factor again.

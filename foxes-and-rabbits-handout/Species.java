@@ -14,7 +14,7 @@ public abstract class Species
     private Field field;
     // The Species's position in the field.
     private Location location;
-    
+    //Age Field to store the age of the animal
     protected int age ;
  
     /**
@@ -68,7 +68,6 @@ public abstract class Species
         }
     }
     
-
     /**
      * Return the Species's location.
      * @return The Species's location.

@@ -1,9 +1,6 @@
 
 /**
- * Abstract class Prey - write a description of the class here
- *
- * @author (your name here)
- * @version (version number or date here)
+ * Class that has all the shared characteristics of a Prey
  */
 public abstract class Prey extends Species
 {
@@ -13,7 +10,5 @@ public abstract class Prey extends Species
     public Prey (Boolean randomAge,Field field, Location location)
     {
         super(field, location);
-
-
-
-    }}
+    }
+}
