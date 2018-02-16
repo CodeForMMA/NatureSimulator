@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=Prey
+comment0.text=\n\ Abstract\ class\ Prey\ -\ write\ a\ description\ of\ the\ class\ here\n\n\ @author\ (your\ name\ here)\n\ @version\ (version\ number\ or\ date\ here)\n
+comment1.params=randomAge\ field\ location
+comment1.target=Prey(java.lang.Boolean,\ Field,\ Location)
+numComments=2
