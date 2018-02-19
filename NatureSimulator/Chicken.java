@@ -1,3 +1,4 @@
+import java.sql.Time;
 import java.util.List;
 import java.util.Random;
 
@@ -22,7 +23,8 @@ public class Chicken extends Prey
     private static final int MAX_LITTER_SIZE = 4;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
-    
+    //Time of Day
+    private TimeOfDay time;
     // Individual characteristics (instance fields).
     
     // The rabbit's age.
@@ -42,6 +44,8 @@ public class Chicken extends Prey
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
         }
+        //Starts the day
+        time = new TimeOfDay();
     }
     
     /**
@@ -51,25 +55,22 @@ public class Chicken extends Prey
      */
     public void act(List<Species> newChickens)
     {
-        incrementAge(MAX_AGE);
-        if(isAlive()) {
-            giveBirth(newChickens);            
-            // Try to move into a free location.
-            Location newLocation = getField().freeAdjacentLocation(getLocation());
-            if(newLocation != null) {
-                setLocation(newLocation);
-            }
-            else {
-                // Overcrowding.
-                setDead();
+        if(time.whatTime()){
+            incrementAge(MAX_AGE);
+            if(isAlive()) {
+                giveBirth(newChickens);
+                // Try to move into a free location.
+                Location newLocation = getField().freeAdjacentLocation(getLocation());
+                if(newLocation != null) {
+                    setLocation(newLocation);
+                } else {
+                    // Overcrowding.
+                    setDead();
+                }
             }
         }
-    }
 
-    /**
-     * Increase the age.
-     * This could result in the rabbit's death.
-     */
+    }
    
     
     /**
@@ -109,7 +110,7 @@ public class Chicken extends Prey
      * A chicken can breed if it has reached the breeding age.
      * @return true if the chicken can breed, false otherwise.
      */
-    private boolean canBreed()
+    protected boolean canBreed()
     {
         return age >= BREEDING_AGE;
     }

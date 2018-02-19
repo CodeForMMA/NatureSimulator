@@ -167,7 +167,7 @@ public class Wolf extends Predator
     /**
      * A fox can breed if it has reached the breeding age.
      */
-    private boolean canBreed()
+    protected boolean canBreed()
     {
         return age >= BREEDING_AGE;
     }

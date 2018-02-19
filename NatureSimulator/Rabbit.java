@@ -22,7 +22,8 @@ public class Rabbit extends Prey
     private static final int MAX_LITTER_SIZE = 4;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
-    
+    //Time of Day
+    private TimeOfDay time;
     // Individual characteristics (instance fields).
     
     // The rabbit's age.
@@ -43,8 +44,16 @@ public class Rabbit extends Prey
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
         }
+        //Starts the day
+        time = new TimeOfDay();
     }
-    
+
+    /**
+     *
+     */
+
+
+
     /**
      * This is what the rabbit does most of the time - it runs 
      * around. Sometimes it will breed or die of old age.
@@ -52,17 +61,19 @@ public class Rabbit extends Prey
      */
     public void act(List<Species> newRabbits)
     {
-        incrementAge(MAX_AGE);
-        if(isAlive()) {
-            giveBirth(newRabbits);            
-            // Try to move into a free location.
-            Location newLocation = getField().freeAdjacentLocation(getLocation());
-            if(newLocation != null) {
-                setLocation(newLocation);
-            }
-            else {
-                // Overcrowding.
-                setDead();
+        System.out.println(time.getCurrentStep());
+        if(time.whatTime()){
+            incrementAge(MAX_AGE);
+            if(isAlive()) {
+                giveBirth(newRabbits);
+                // Try to move into a free location.
+                Location newLocation = getField().freeAdjacentLocation(getLocation());
+                if(newLocation != null) {
+                    setLocation(newLocation);
+                } else {
+                    // Overcrowding.
+                    setDead();
+                }
             }
         }
     }
@@ -104,7 +115,7 @@ public class Rabbit extends Prey
      * A rabbit can breed if it has reached the breeding age.
      * @return true if the rabbit can breed, false otherwise.
      */
-    private boolean canBreed()
+    protected boolean canBreed()
     {
         return age >= BREEDING_AGE;
     }

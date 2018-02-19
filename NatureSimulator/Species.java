@@ -34,6 +34,7 @@ public abstract class Species
      * Make this Species act - that is: make it do
      * whatever it wants/needs to do.
      * @param newSpecies A list to receive newly born Species.
+     *                   Change this so different speices act differently
      */
     abstract public void act(List<Species> newSpecies);
 
@@ -46,6 +47,9 @@ public abstract class Species
         return alive;
     }
     
+    /**
+     * Increments the Age animals, may result in death if max age is reached.
+     */
     protected void incrementAge(int maxAge)
     {
         age++;
@@ -98,7 +102,10 @@ public abstract class Species
     {
         return field;
     }
-
+    //Abstact method, for the breed method
     abstract protected int breed();
+    //Abstract Method, for the giveBirthMethod
     abstract protected void giveBirth(List<Species> newSpecies);
+    //Abstract Method for the CanBreedMethod
+    abstract protected boolean canBreed();
 }

@@ -1,3 +1,4 @@
+import java.sql.Time;
 import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
@@ -24,8 +25,8 @@ public class Simulator
     private static final double RABBIT_CREATION_PROBABILITY = 0.05;    
     //The probability that a rabbit will be created in any given grid position
     private static final double CHICKEN_CREATION_PROBABILITY = 0.05;
-    //The probabilty that a fox will be created in any give grid position
-    private static final double WOLD_CREATION_PROBABILTY = 0.02;
+    //The probability that a fox will be created in any give grid position
+    private static final double WOLD_CREATION_PROBABILITY = 0.02;
     
     // List of Species in the field.
     private List<Species> Species;
@@ -35,7 +36,9 @@ public class Simulator
     private int step;
     // A graphical view of the simulation.
     private SimulatorView view;
-    
+    // Checks the Time of Day for the simulation
+    private TimeOfDay time;
+
     /**
      * Construct a simulation field with default size.
      */
@@ -43,7 +46,7 @@ public class Simulator
     {
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
     }
-    
+
     /**
      * Create a simulation field with the given size.
      * @param depth Depth of the field. Must be greater than zero.
@@ -51,6 +54,7 @@ public class Simulator
      */
     public Simulator(int depth, int width)
     {
+
         if(width <= 0 || depth <= 0) {
             System.out.println("The dimensions must be greater than zero.");
             System.out.println("Using default values.");
@@ -69,6 +73,8 @@ public class Simulator
         view.setColor(Wolf.class, Color.RED);
         // Setup a valid starting point.
         reset();
+        //Starts the Day
+
     }
     
     /**
@@ -89,7 +95,7 @@ public class Simulator
     {
         for(int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
-            // delay(60);   // uncomment this to run more slowly
+            delay(60);   // uncomment this to run more slowly
         }
     }
     
@@ -156,7 +162,7 @@ public class Simulator
                     Chicken chicken = new Chicken(true, field, location);
                     Species.add(chicken);
                 }
-                else if(rand.nextDouble() <= WOLD_CREATION_PROBABILTY){
+                else if(rand.nextDouble() <= WOLD_CREATION_PROBABILITY){
                     Location location = new Location(row, col);
                     Wolf wolf = new Wolf(true, field, location);
                     Species.add(wolf);
@@ -178,9 +184,5 @@ public class Simulator
         catch (InterruptedException ie) {
             // wake up
         }
-    }
-    //Returns the current step of the program
-    public int getStep(){
-        return step;
     }
 }

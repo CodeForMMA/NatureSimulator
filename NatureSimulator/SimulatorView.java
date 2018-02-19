@@ -114,11 +114,6 @@ public class SimulatorView extends JFrame
         
         fieldView.preparePaint();
         
-        if (step % 12 == 0){
-            
-            
-        }
-        
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
                 Object animal = field.getObjectAt(row, col);
@@ -126,18 +121,13 @@ public class SimulatorView extends JFrame
                     stats.incrementCount(animal.getClass());
                     fieldView.drawMark(col, row, getColor(animal.getClass()));
                 }
-                 
-                
                 else if (step % 24  == 0) {
-                    fieldView.drawMark(col, row, Color.white);  
-                    
+                    fieldView.drawMark(col, row, Color.white);
                     }
                 else if (step % 12 == 0) {
-                    
                     fieldView.drawMark(col, row, Color.black); 
                 }
-                }
-            
+            }
         }
         stats.countFinished();
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
