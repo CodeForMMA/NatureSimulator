@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Mushroom
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Mushroom\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=randomAge\ field\ location
+comment1.target=Mushroom(boolean,\ Field,\ Location)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Mushroom\r\n
+comment2.params=newMushrooms\ isDay
+comment2.target=void\ act(java.util.List,\ boolean)
+comment2.text=\r\n\ This\ is\ what\ the\ rabbit\ does\ most\ of\ the\ time\ -\ it\ runs\ \r\n\ around.\ Sometimes\ it\ will\ breed\ or\ die\ of\ old\ age.\r\n\ @param\ newRabbits\ A\ list\ to\ return\ newly\ born\ rabbits.\r\n
+comment3.params=newMushrooms
+comment3.target=void\ giveBirth(java.util.List)
+comment3.text=\r\n\ Check\ whether\ or\ not\ this\ mushroom\ is\ to\ give\ birth\ at\ this\ step.\r\n\ New\ births\ will\ be\ made\ into\ free\ adjacent\ locations.\r\n\ @param\ newMushrooms\ A\ list\ to\ return\ newly\ born\ Mushrooms.\r\n
+numComments=4

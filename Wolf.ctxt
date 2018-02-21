@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Wolf
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Wolf\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=randomAge\ field\ location\ gender
+comment1.target=Wolf(boolean,\ Field,\ Location,\ boolean)
+comment1.text=\r\n\ Create\ a\ wolf.\ A\ wolf\ can\ be\ created\ as\ a\ new\ born\ (age\ zero\r\n\ and\ not\ hungry)\ or\ with\ a\ random\ age\ and\ food\ level.\r\n\ \r\n\ @param\ randomAge\ If\ true,\ the\ wolf\ will\ have\ random\ age\ and\ hunger\ level.\r\n\ @param\ field\ The\ field\ currently\ occupied.\r\n\ @param\ location\ The\ location\ within\ the\ field.\r\n
+comment2.params=newWolves\ isDay
+comment2.target=void\ act(java.util.List,\ boolean)
+comment2.text=\r\n\ This\ is\ what\ the\ wolf\ does\ most\ of\ the\ time\:\ it\ hunts\ for\r\n\ rabbits.\ In\ the\ process,\ it\ might\ breed,\ die\ of\ hunger,\r\n\ or\ die\ of\ old\ age.\r\n\ @param\ field\ The\ field\ currently\ occupied.\r\n\ @param\ newWolves\ A\ list\ to\ return\ newly\ born\ wolves.\r\n
+comment3.params=
+comment3.target=Location\ findFood()
+comment3.text=\r\n\ Look\ for\ rabbits\ adjacent\ to\ the\ current\ location.\r\n\ Only\ the\ first\ live\ rabbit\ is\ eaten.\r\n\ @return\ Where\ food\ was\ found,\ or\ null\ if\ it\ wasn't.\r\n
+comment4.params=newWolf
+comment4.target=void\ giveBirth(java.util.List)
+comment4.text=\r\n\ Check\ whether\ or\ not\ this\ Wolf\ is\ to\ give\ birth\ at\ this\ step.\r\n\ New\ births\ will\ be\ made\ into\ free\ adjacent\ locations.\r\n\ @param\ newWolfes\ A\ list\ to\ return\ newly\ born\ Wolfes.\r\n
+comment5.params=nextToMe
+comment5.target=boolean\ canIMate(Location)
+comment5.text=\r\n\ Checks\ the\ surrounding\ animal\ if\ they\ of\ the\ same\ sex\r\n\ @return\ Boolean\r\n
+numComments=6

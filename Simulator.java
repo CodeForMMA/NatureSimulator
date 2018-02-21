@@ -19,10 +19,16 @@ public class Simulator
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.02;
+    private static final double FOX_CREATION_PROBABILITY = 0.05;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
-
+    private static final double RABBIT_CREATION_PROBABILITY = 0.03;   
+    // The probability that a chicken will be created in any given grid position.
+    private static final double CHICKEN_CREATION_PROBABILITY = 0.04; 
+    // The probability that a Wolf will be created in any given grid position.
+    private static final double WOLF_CREATION_PROBABILITY = 0.02; 
+    // The probability that a Wolf will be created in any given grid position.
+    private static final double MUSHROOM_CREATION_PROBABILITY = 0.05; 
+     
     // List of animals in the field.
     private List<Species> species;
     // The current state of the field.
@@ -31,17 +37,15 @@ public class Simulator
     private int step;
     // A graphical view of the simulation.
     private SimulatorView view;
-    
-    
+    //  Species
+    private Species spec;
+
     /**
      * Construct a simulation field with default size.
      */
     public Simulator()
     {
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
-        
-        
-       
     }
     
     /**
@@ -60,14 +64,25 @@ public class Simulator
         
         species = new ArrayList<>();
         field = new Field(depth, width);
+        
 
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
         view.setColor(Rabbit.class, Color.ORANGE);
         view.setColor(Fox.class, Color.BLUE);
-        
+        view.setColor(Chicken.class, Color.GREEN);
+        view.setColor(Wolf.class, Color.PINK);
+        view.setColor(Mushroom.class, Color.MAGENTA);
         // Setup a valid starting point.
         reset();
+    }
+    
+    /** returns a boolean value for night and day 
+     * 
+     * returns a boolean value for it being time and day 
+     */
+    public boolean isDay(){
+        return view.isDay();
     }
     
     /**
@@ -88,7 +103,7 @@ public class Simulator
     {
         for(int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
-            // delay(60);   // uncomment this to run more slowly
+            delay(200);   // uncomment this to run more slowly
         }
     }
    
@@ -107,7 +122,7 @@ public class Simulator
         // Let all rabbits act.
         for(Iterator<Species> it = species.iterator(); it.hasNext(); ) {
             Species species = it.next();
-            species.act(newSpecies);
+            species.act(newSpecies, isDay());
             if(! species.isAlive()) {
                 it.remove();
             }
@@ -118,7 +133,8 @@ public class Simulator
 
         view.showStatus(step, field);
     }
-        
+  
+    
     /**
      * Reset the simulation to a starting position.
      */
@@ -131,22 +147,16 @@ public class Simulator
         // Show the starting state in the view.
         view.showStatus(step, field);
     }
-    public int getStepNumber(){
-        
-        return step; 
-        
-    }
-    //public void checkDay(){
-        
-       //if (getStepNumber() %12 == 0) {
-           
-           
-           
-      //  }
-        
-    //}
+    
     /**
-     * Randomly populate the field with foxes and rabbits.
+     * Returns the current step number in the simulator
+     */
+    public int getStepNumber(){
+        return step;
+    }
+   
+    /**
+     * Randomly populate the field with foxes, rabbits, chickens and wolves.
      */
     private void populate()
     {
@@ -156,13 +166,28 @@ public class Simulator
             for(int col = 0; col < field.getWidth(); col++) {
                 if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Fox fox = new Fox(true, field, location);
+                    Fox fox = new Fox(true, field, location, rand.nextBoolean());
                     species.add(fox);
                 }
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Rabbit rabbit = new Rabbit(true, field, location);
+                    Rabbit rabbit = new Rabbit(true, field, location, rand.nextBoolean());
                     species.add(rabbit);
+                }
+                else if(rand.nextDouble() <= CHICKEN_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Chicken chicken = new Chicken(true, field, location, rand.nextBoolean());
+                    species.add(chicken);
+                }
+                else if(rand.nextDouble() <= WOLF_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Wolf wolf = new Wolf(true, field, location, rand.nextBoolean());
+                    species.add(wolf);
+                }
+                else if(rand.nextDouble() <= MUSHROOM_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Mushroom mushroom = new Mushroom(true, field, location);
+                    species.add(mushroom);
                 }
                 // else leave the location empty.
             }
@@ -183,3 +208,4 @@ public class Simulator
         }
     }
 }
+

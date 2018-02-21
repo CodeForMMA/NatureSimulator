@@ -33,7 +33,7 @@ public class SimulatorView extends JFrame
     private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
     private FieldStats stats;
-    
+    private boolean isDay; 
     /**
      * Create a view of the given width and height.
      * @param height The simulation's height.
@@ -114,11 +114,6 @@ public class SimulatorView extends JFrame
         
         fieldView.preparePaint();
         
-        if (step % 12 == 0){
-            
-            
-        }
-        
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
                 Object animal = field.getObjectAt(row, col);
@@ -127,28 +122,26 @@ public class SimulatorView extends JFrame
                     fieldView.drawMark(col, row, getColor(animal.getClass()));
                 }
                  
+                //each 12 steps the background changes colour which shows night/black day/white
                 
                 else if (step % 24  == 0) {
                     fieldView.drawMark(col, row, Color.white);  
-                    
+                    isDay = true ;
                     }
                 else if (step % 12 == 0) {
-                    
+                    isDay = false ; 
                     fieldView.drawMark(col, row, Color.black); 
                 }
-                }
-            
+            }
         }
         stats.countFinished();
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
         fieldView.repaint();
     }
-    public boolean setDay(){
-        
-        return true;
-        
+    //returns false for night time and true for day time
+    public boolean isDay(){
+        return isDay;
     }
-    
     /**
      * Determine whether the simulation should continue to run.
      * @return true If there is more than one species alive.
@@ -185,7 +178,7 @@ public class SimulatorView extends JFrame
             gridWidth = width;
             size = new Dimension(0, 0);
         }
-
+        
         /**
          * Tell the GUI manager how big we would like to be.
          */

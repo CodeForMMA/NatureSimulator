@@ -1,42 +1,31 @@
 import java.util.*;
 /**
- * Abstract class Prey - write a description of the class here
+ * Abstract class Plants - write a description of the class here
  *
  * @author (your name here)
  * @version (version number or date here)
  */
-public abstract class Prey extends Species
+public abstract class Plant extends Species
 {
     // instance variables - replace the example below with your own
-    //Maximum number of offspring
-    private static int MAX_LITTER_SIZE;
-    //Maximum age animal can reach
+    private static int MAX_SPORE_SIZE;
     private static int MAX_AGE;
-    //The chances they can produce offspring
-    private static double BREEDING_PROBABILTY;
-    //Age the prey can breed
     private static int BREEDING_AGE;
-    //The age of the prey
+    private static double BREEDING_PROBABILTY;
     protected int age;
-    //The gender of the animal
-    protected boolean gender;
-    //Food Level of the rabbits
-    protected int foodLevel;
-    //Randomizer
     private static final Random rand = Randomizer.getRandom();
     
-    public Prey (Boolean randomAge,Field field, Location location, boolean gender)
-    {
+
+    public Plant (Boolean randomAge, Field field, Location location){
         super(field, location);
-        this.gender = gender;
     }
     
-    public static int getMaxLitterSize() {
-        return MAX_LITTER_SIZE;
+    public static int getMaxSporeSize() {
+        return MAX_SPORE_SIZE;
     }
 
-    public static void setMaxLitterSize(int maxLitterSize) {
-        MAX_LITTER_SIZE = maxLitterSize;
+    public static void setMaxSporeSize(int maxSporeSize) {
+        MAX_SPORE_SIZE = maxSporeSize;
     }
 
     public static void setMaxAge(int maxAge) {
@@ -70,22 +59,6 @@ public abstract class Prey extends Species
     public void setAge(int age) {
         this.age = age;
     }
-
-    public boolean isGender() {
-        return gender;
-    }
-
-    public void setGender(boolean gender) {
-        this.gender = gender;
-    }
-    
-    public void setFoodLevel(int foodLevel){
-        this.foodLevel = foodLevel;
-    }
-    
-    public int getFoodLevel(){
-        return foodLevel;
-    }
     
     /**
      * Generate a number representing the number of births,
@@ -96,7 +69,7 @@ public abstract class Prey extends Species
     {
         int births = 0;
         if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILTY) {
-            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
+            births = rand.nextInt(MAX_SPORE_SIZE) + 1;
         }
         return births;
     }
@@ -110,15 +83,4 @@ public abstract class Prey extends Species
         return age >= BREEDING_AGE;
     }
     
-    /**
-     * Make this fox more hungry. This could result in the fox's death.
-     */
-    protected void incrementHunger()
-    {
-        foodLevel--;
-        if(foodLevel <= 0) {
-            setDead();
-        }
-    }
-
 }

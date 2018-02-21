@@ -1,40 +1,40 @@
 import java.util.*;
-
 /**
- * A simple model of a rabbit.
- * Rabbits age, move, breed, and die.
- * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * Write a description of class Chicken here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
  */
-public class Rabbit extends Prey
+public class Chicken extends Prey
 {
-    // Characteristics shared by all rabbits (class variables).
+    // instance variables - replace the example below with your own
+    
+    // Characteristics shared by all chickens (class variables).
+    
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     //Checks if they can mate
     private boolean canWeMate;
     
-    // Individual characteristics (instance fields).
     private static final int MUSHROOM_FOOD_VALUE = 2;
     
-    
+    // Individual characteristics (instance fields).
 
     /**
-     * Create a new rabbit. A rabbit may be created with age
+     * Create a new chicken. A chicken may be created with age
      * zero (a new born) or with a random age.
      * 
-     * @param randomAge If true, the rabbit will have a random age.
+     * @param randomAge If true, the chicken will have a random age.
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Rabbit(boolean randomAge, Field field, Location location, boolean gender)
+    public Chicken(boolean randomAge, Field field, Location location,boolean gender)
     {
         super(randomAge, field, location, gender);
-        setBreedingProbabilty(0.12);
-        setMaxAge(20);
-        setMaxLitterSize(4);
-        setBreedingAge(9);
+        setBreedingProbabilty(0.2);
+        setMaxAge(15);
+        setMaxLitterSize(1);
+        setBreedingAge(10);
         setFoodLevel(5);
         if(randomAge) {
             age = rand.nextInt(getMaxAge());
@@ -45,16 +45,16 @@ public class Rabbit extends Prey
     }
     
     /**
-     * This is what the rabbit does most of the time - it runs 
+     * This is what the chicken does most of the time - it runs 
      * around. Sometimes it will breed or die of old age.
-     * @param newRabbits A list to return newly born rabbits.
+     * @param newChickens A list to return newly born chickens.
      */
-    public void act(List<Species> newRabbits, boolean isDay)
+    public void act(List<Species> newChickens, boolean isDay)
     {
         incrementAge(getMaxAge());
         incrementHunger();
         if(isAlive()) {
-            giveBirth(newRabbits);            
+            giveBirth(newChickens);            
             // Try to move into a free location.
             Location newLocation = getField().freeAdjacentLocation(getLocation());
             if(newLocation != null) {
@@ -66,15 +66,15 @@ public class Rabbit extends Prey
             }
         }
     }
-    
+
     /**
-     * Check whether or not this Rabbit is to give birth at this step.
+     * Check whether or not this chicken is to give birth at this step.
      * New births will be made into free adjacent locations.
-     * @param newRabbites A list to return newly born Rabbites.
+     * @param newChickens A list to return newly born Chickens.
      */
-    protected void giveBirth(List<Species> newRabbits)
+    protected void giveBirth(List<Species> newChickens)
     {
-        // New Rabbites are born into adjacent locations.
+        // New Chickens are born into adjacent locations.
         // Get a list of adjacent free locations.
         
         Field field = getField();
@@ -91,8 +91,8 @@ public class Rabbit extends Prey
                             break;
                         }
                         Location loc = free.remove(0);
-                        Rabbit young = new Rabbit(false, field, loc, genderGen());
-                        newRabbits.add(young);
+                        Chicken young = new Chicken(false, field, loc, genderGen());
+                        newChickens.add(young);
                     }
                 }
             }
@@ -103,12 +103,13 @@ public class Rabbit extends Prey
      * Checks the surrounding animal if they of the same sex
      * @return Boolean
      */
+    //change these gay ass fucking variables
     protected boolean canIMate(Location nextToMe)
     {
         Field field = getField();
         Object animalNextToMe = field.getObjectAt(nextToMe);
-        if ((animalNextToMe != null) && (animalNextToMe instanceof Rabbit)){
-            Rabbit partner = (Rabbit) animalNextToMe;
+        if ((animalNextToMe != null) && (animalNextToMe instanceof Chicken)){
+            Chicken partner = (Chicken) animalNextToMe;
             if(this.isGender() != partner.isGender()){
                 canWeMate = true;
             } else {

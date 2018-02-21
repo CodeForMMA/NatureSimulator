@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.*;
 
 /**
  * A class representing shared characteristics of animals.
@@ -14,7 +14,8 @@ public abstract class Species
     private Field field;
     // The animal's position in the field.
     private Location location;
-    int age; 
+    //age of the species 
+    protected int age; 
     /**
      * Create a new animal at location in field.
      * 
@@ -34,7 +35,7 @@ public abstract class Species
      * whatever it wants/needs to do.
      * @param newSpeices A list to receive newly born animals.
      */
-    abstract public void act(List<Species> newSpecies);
+    abstract public void act(List<Species> newSpecies, boolean isDay);
 
     /**
      * Check whether the animal is alive or not.
@@ -44,6 +45,10 @@ public abstract class Species
     {
         return alive;
     }
+    
+    /**
+     * Increments the age of the animal if it exceeds the max age it dies.
+     */
     protected void incrementAge(int MAX_AGE)
     {
         age++;
@@ -51,6 +56,7 @@ public abstract class Species
             setDead();
         }
     }
+    
     /**
      * Indicate that the animal is no longer alive.
      * It is removed from the field.
@@ -94,5 +100,16 @@ public abstract class Species
     protected Field getField()
     {
         return field;
+    }
+    
+    /**
+     * Randomly creates a random gender for animals
+     * @return true for male, false for female.
+     */
+    protected boolean genderGen()
+    {
+        Random gender = new Random();
+        boolean genderGen = gender.nextBoolean();
+        return genderGen;
     }
 }
