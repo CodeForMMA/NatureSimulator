@@ -123,7 +123,8 @@ public class Simulator
         for(Iterator<Species> it = species.iterator(); it.hasNext(); ) {
             Species species = it.next();
             species.act(newSpecies, isDay());
-            if(! species.isAlive()) {
+            if(!species.isAlive()) {
+                species.setDead();
                 it.remove();
             }
         }

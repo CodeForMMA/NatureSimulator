@@ -103,7 +103,6 @@ public class Chicken extends Prey
      * Checks the surrounding animal if they of the same sex
      * @return Boolean
      */
-    //change these gay ass fucking variables
     protected boolean canIMate(Location nextToMe)
     {
         Field field = getField();
