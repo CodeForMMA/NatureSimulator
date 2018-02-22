@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Weather
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Weather\ here.\r\n\r\n\ @authors\ Haidar\ Alawie,\ Mansour\ Jalaly\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=Weather()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Weather\r\n
+comment2.params=
+comment2.target=java.lang.String\ getWeather()
+comment2.text=\r\n\ \r\n
+comment3.params=
+comment3.target=java.lang.String\ randomWeather()
+comment3.text=\r\n\ \r\n
+numComments=4
