@@ -19,11 +19,11 @@ public class Simulator
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.05;
+    private static final double FOX_CREATION_PROBABILITY = 0.03;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.03;   
+    private static final double RABBIT_CREATION_PROBABILITY = 0.08;   
     // The probability that a chicken will be created in any given grid position.
-    private static final double CHICKEN_CREATION_PROBABILITY = 0.04; 
+    private static final double CHICKEN_CREATION_PROBABILITY = 0.10; 
     // The probability that a Wolf will be created in any given grid position.
     private static final double WOLF_CREATION_PROBABILITY = 0.02; 
     // The probability that a Wolf will be created in any given grid position.
@@ -39,13 +39,19 @@ public class Simulator
     private SimulatorView view;
     //  Species
     private Species spec;
-
+    //day or night
+    private boolean isItDay;
+    //The weather of the simulation
+    private String weather;
+    
     /**
      * Construct a simulation field with default size.
      */
     public Simulator()
     {
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
+        weather = "Sunny";
+
     }
     
     /**
@@ -65,7 +71,7 @@ public class Simulator
         species = new ArrayList<>();
         field = new Field(depth, width);
         
-
+        
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
         view.setColor(Rabbit.class, Color.ORANGE);
@@ -81,10 +87,25 @@ public class Simulator
      * 
      * returns a boolean value for it being time and day 
      */
-    public boolean isDay(){
-        return view.isDay();
+    private void isDay(){
+        if(step % 24 == 0){
+            isItDay = false;
+        } else {
+            isItDay = true;
+        }
     }
     
+    /**
+     * Every 24 steps get a new weather
+     * @return String weather
+     */
+    private void changeWeather(){
+        Weather weatherClass = new Weather();
+        if (step % 6 == 0 ){
+            weather = weatherClass.getWeather();
+        }
+    }
+            
     /**
      * Run the simulation from its current state for a reasonably long period,
      * (4000 steps).
@@ -116,13 +137,14 @@ public class Simulator
     public void simulateOneStep()
     {
         step++;
-
+        isItDay = true;
+        changeWeather();
         // Provide space for newborn animals.
         List<Species> newSpecies = new ArrayList<>();        
         // Let all rabbits act.
         for(Iterator<Species> it = species.iterator(); it.hasNext(); ) {
             Species species = it.next();
-            species.act(newSpecies, isDay());
+            species.act(newSpecies, isItDay, weather);
             if(!species.isAlive()) {
                 species.setDead();
                 it.remove();
@@ -132,10 +154,18 @@ public class Simulator
         // Add the newly born foxes and rabbits to the main lists.
         species.addAll(newSpecies);
 
-        view.showStatus(step, field);
+        view.showStatus(step, field, isItDay, weather);
     }
-  
     
+    /**
+     * Gets the time of day
+     * @return true for day false for night
+     */
+    public boolean getTimeOfDay()
+    {
+        return isItDay;
+    }
+
     /**
      * Reset the simulation to a starting position.
      */
@@ -144,9 +174,11 @@ public class Simulator
         step = 0;
         species.clear();
         populate();
+        weather = "Sunny";
+        changeWeather();
         
         // Show the starting state in the view.
-        view.showStatus(step, field);
+        view.showStatus(step, field, isItDay, weather);
     }
     
     /**

@@ -17,9 +17,9 @@ public class Mushroom extends Plant
     public Mushroom(boolean randomAge,Field field,Location location)
     {
         super(randomAge, field, location);
-        setMaxAge(10);
+        setMaxAge(15);
         setMaxSporeSize(4);
-        setBreedingProbabilty(0.25);
+        setBreedingProbabilty(0.30);
         setBreedingAge(5);
         if(randomAge){
             age = rand.nextInt(getMaxAge());
@@ -33,7 +33,7 @@ public class Mushroom extends Plant
      * around. Sometimes it will breed or die of old age.
      * @param newRabbits A list to return newly born rabbits.
      */
-    public void act(List<Species> newMushrooms, boolean isDay)
+    public void act(List<Species> newMushrooms, boolean isDay, String weather)
     {
         incrementAge(getMaxAge());
         if(isAlive()) {

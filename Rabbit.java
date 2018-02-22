@@ -16,7 +16,7 @@ public class Rabbit extends Prey
     private boolean canWeMate;
     
     // Individual characteristics (instance fields).
-    private static final int MUSHROOM_FOOD_VALUE = 2;
+    private static final int MUSHROOM_FOOD_VALUE = 3;
     
     
 
@@ -31,11 +31,11 @@ public class Rabbit extends Prey
     public Rabbit(boolean randomAge, Field field, Location location, boolean gender)
     {
         super(randomAge, field, location, gender);
-        setBreedingProbabilty(0.12);
-        setMaxAge(20);
+        setBreedingProbabilty(0.15);
+        setMaxAge(25);
         setMaxLitterSize(4);
-        setBreedingAge(9);
-        setFoodLevel(5);
+        setBreedingAge(10);
+        setFoodLevel(15);
         if(randomAge) {
             age = rand.nextInt(getMaxAge());
         }
@@ -49,14 +49,15 @@ public class Rabbit extends Prey
      * around. Sometimes it will breed or die of old age.
      * @param newRabbits A list to return newly born rabbits.
      */
-    public void act(List<Species> newRabbits, boolean isDay)
+    public void act(List<Species> newRabbits, boolean isDay, String weather)
     {
         incrementAge(getMaxAge());
         incrementHunger();
         if(isAlive()) {
             giveBirth(newRabbits);            
             // Try to move into a free location.
-            Location newLocation = getField().freeAdjacentLocation(getLocation());
+           // if(!weather.equals("Fog")){
+                 Location newLocation = getField().freeAdjacentLocation(getLocation());
             if(newLocation != null) {
                 setLocation(newLocation);
             }
@@ -64,6 +65,7 @@ public class Rabbit extends Prey
                 // Overcrowding.
                 setDead();
             }
+       // }
         }
     }
     

@@ -16,7 +16,7 @@ public class Chicken extends Prey
     //Checks if they can mate
     private boolean canWeMate;
     
-    private static final int MUSHROOM_FOOD_VALUE = 2;
+    private static final int MUSHROOM_FOOD_VALUE = 3;
     
     // Individual characteristics (instance fields).
 
@@ -28,14 +28,14 @@ public class Chicken extends Prey
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Chicken(boolean randomAge, Field field, Location location,boolean gender)
+    public Chicken(boolean randomAge, Field field, Location location, boolean gender)
     {
         super(randomAge, field, location, gender);
         setBreedingProbabilty(0.2);
         setMaxAge(15);
-        setMaxLitterSize(1);
-        setBreedingAge(10);
-        setFoodLevel(5);
+        setMaxLitterSize(4);
+        setBreedingAge(5);
+        setFoodLevel(15);
         if(randomAge) {
             age = rand.nextInt(getMaxAge());
         }
@@ -49,7 +49,7 @@ public class Chicken extends Prey
      * around. Sometimes it will breed or die of old age.
      * @param newChickens A list to return newly born chickens.
      */
-    public void act(List<Species> newChickens, boolean isDay)
+    public void act(List<Species> newChickens, boolean isDay, String weather)
     {
         incrementAge(getMaxAge());
         incrementHunger();
@@ -86,6 +86,7 @@ public class Chicken extends Prey
             if (nextToMe != null){
                 if(canIMate(nextToMe)){
                     int births = breed();
+                    System.out.println("Chickens have bred");
                     for(int b = 0; b < births && free.size() > 0; b++) {
                         if(free.size() == 0){
                             break;
@@ -135,6 +136,7 @@ public class Chicken extends Prey
                 Mushroom mushroom = (Mushroom) plant;
                 if(mushroom.isAlive()) { 
                     mushroom.setDead();
+                    System.out.println("Chicken has eaten Mushroom");
                     foodLevel = MUSHROOM_FOOD_VALUE;
                     return where;
                 }

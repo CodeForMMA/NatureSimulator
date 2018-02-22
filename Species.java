@@ -35,7 +35,7 @@ public abstract class Species
      * whatever it wants/needs to do.
      * @param newSpeices A list to receive newly born animals.
      */
-    abstract public void act(List<Species> newSpecies, boolean isDay);
+    abstract public void act(List<Species> newSpecies, boolean isDay, String weather);
 
     /**
      * Check whether the animal is alive or not.

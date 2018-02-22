@@ -15,23 +15,12 @@ public class Fox extends Predator
     
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static final int RABBIT_FOOD_VALUE = 13;
-    
-    private static final int CHICKEN_FOOD_VALUE = 16;
+    private static final int RABBIT_FOOD_VALUE = 10;
+    private static final int CHICKEN_FOOD_VALUE = 5;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     
-    // Individual characteristics (instance fields).
-    
-    // The fox's food level, which is increased by eating rabbits.
-    private int foodLevel;
-    
-    //Simulator 
-    private Simulator sim;
-    
-    //Gender of the Fox (True if male, false if female)
-    private boolean gender;
-    
+    // Individual characteristics (instance fields)
     //Return value to see if the animals can mate
     private boolean canWeMate;
     
@@ -69,7 +58,7 @@ public class Fox extends Predator
      * @param field The field currently occupied.
      * @param newFoxes A list to return newly born foxes.
      */
-    public void act(List<Species> newFoxes, boolean isDay)
+    public void act(List<Species> newFoxes, boolean isDay, String Weather)
     {
        incrementAge(getMaxAge());
        incrementHunger();
@@ -111,6 +100,7 @@ public class Fox extends Predator
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isAlive()) { 
                     rabbit.setDead();
+                    System.out.println("Rabbit has been eaten by fox");
                     foodLevel = RABBIT_FOOD_VALUE;
                     return where;
                 }
@@ -119,6 +109,7 @@ public class Fox extends Predator
                 Chicken chicken = (Chicken) animal;
                 if(chicken.isAlive()){
                     chicken.setDead();
+                    System.out.println("Chicken has been eaten by fox");
                     foodLevel = CHICKEN_FOOD_VALUE;
                     return where;   
                 }
@@ -144,8 +135,10 @@ public class Fox extends Predator
         while(it.hasNext()){
             Location nextToMe = it.next();
             if (nextToMe != null){
+                //System.out.println("Test");
                 if(canIMate(nextToMe)){
                     int births = breed();
+                    System.out.println("Foxes have bred");
                     for(int b = 0; b < births && free.size() > 0; b++) {
                         if(free.size() == 0){
                             break;
@@ -167,7 +160,7 @@ public class Fox extends Predator
     {
         Field field = getField();
         Object animalNextToMe = field.getObjectAt(nextToMe);
-        if ((animalNextToMe != null) && (animalNextToMe instanceof Fox)){
+        if ((animalNextToMe != null && animalNextToMe instanceof Fox)){
             Fox partner = (Fox) animalNextToMe;
             if(this.isGender() != partner.isGender()){
                 canWeMate = true;

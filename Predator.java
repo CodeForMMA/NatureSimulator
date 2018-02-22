@@ -38,6 +38,7 @@ public abstract class Predator extends Species
         super(field, location);
         this.gender = gender;
         
+        
     }
     
     public static int getMaxLitterSize() {

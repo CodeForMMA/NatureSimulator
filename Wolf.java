@@ -19,7 +19,8 @@ public class Wolf extends Predator
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     //Checks if they can mate
-    private boolean canWeMate;
+    private boolean canWeMate;    
+    private boolean gender;
     
     // Individual characteristics (instance fields).
 
@@ -56,7 +57,7 @@ public class Wolf extends Predator
      * @param field The field currently occupied.
      * @param newWolves A list to return newly born wolves.
      */
-    public void act(List<Species> newWolves, boolean isDay)
+    public void act(List<Species> newWolves, boolean isDay, String weather)
     {
         incrementAge(getMaxAge());
         incrementHunger();
@@ -134,6 +135,7 @@ public class Wolf extends Predator
             if (nextToMe != null){
                 if(canIMate(nextToMe)){
                     int births = breed();
+                    System.out.println("Wolves have bred");
                     for(int b = 0; b < births && free.size() > 0; b++) {
                         if(free.size() == 0){
                             break;

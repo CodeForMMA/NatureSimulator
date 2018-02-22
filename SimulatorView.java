@@ -16,24 +16,22 @@ import java.util.Map;
  */
 public class SimulatorView extends JFrame
 {
-    // Colors used for empty locations.]
-    
-    
-    public Color COLORR = Color.getColor("white");
+    // Colors used for empty locations.
+    private static final Color EMPTY_COLOR = Color.white;
     
     // Color used for objects that have no defined color.
     private static final Color UNKNOWN_COLOR = Color.gray;
-
+    private final String WEATHER_PREFIX = "Weather:  " ; 
     private final String STEP_PREFIX = "Step: ";
     private final String POPULATION_PREFIX = "Population: ";
-    private JLabel stepLabel, population, infoLabel;
+    private JLabel stepLabel, population, infoLabel, weatherGUI;
     private FieldView fieldView;
     
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
     private FieldStats stats;
-    private boolean isDay; 
+    private Weather weatherClass;
     /**
      * Create a view of the given width and height.
      * @param height The simulation's height.
@@ -44,13 +42,15 @@ public class SimulatorView extends JFrame
         stats = new FieldStats();
         colors = new LinkedHashMap<>();
 
-        setTitle("Fox and Rabbit Simulation");
+        setTitle("Nature Simulator");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         infoLabel = new JLabel("  ", JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
+        weatherGUI = new JLabel(WEATHER_PREFIX, JLabel.CENTER);
         
         setLocation(100, 50);
-        
+        this.weatherClass = new Weather();
+        weatherClass = new Weather(); 
         fieldView = new FieldView(height, width);
 
         Container contents = getContentPane();
@@ -58,6 +58,7 @@ public class SimulatorView extends JFrame
         JPanel infoPane = new JPanel(new BorderLayout());
             infoPane.add(stepLabel, BorderLayout.WEST);
             infoPane.add(infoLabel, BorderLayout.CENTER);
+            infoPane.add(weatherGUI, BorderLayout.CENTER);
         contents.add(infoPane, BorderLayout.NORTH);
         contents.add(fieldView, BorderLayout.CENTER);
         contents.add(population, BorderLayout.SOUTH);
@@ -103,13 +104,13 @@ public class SimulatorView extends JFrame
      * @param step Which iteration step it is.
      * @param field The field whose status is to be displayed.
      */
-    public void showStatus(int step, Field field)
+    public void showStatus(int step, Field field, boolean isDay, String weather)
     {
         if(!isVisible()) {
             setVisible(true);
         }
-            
-        stepLabel.setText(STEP_PREFIX + step);
+        weatherGUI.setText(WEATHER_PREFIX + weather);
+        stepLabel.setText(STEP_PREFIX + step + " " + (isDay ? "Time: Day" : "Time: Night"));
         stats.reset();
         
         fieldView.preparePaint();
@@ -120,17 +121,9 @@ public class SimulatorView extends JFrame
                 if(animal != null) {
                     stats.incrementCount(animal.getClass());
                     fieldView.drawMark(col, row, getColor(animal.getClass()));
-                }
-                 
-                //each 12 steps the background changes colour which shows night/black day/white
-                
-                else if (step % 24  == 0) {
-                    fieldView.drawMark(col, row, Color.white);  
-                    isDay = true ;
-                    }
-                else if (step % 12 == 0) {
-                    isDay = false ; 
-                    fieldView.drawMark(col, row, Color.black); 
+                } 
+                else {
+                    fieldView.drawMark(col, row, EMPTY_COLOR);
                 }
             }
         }
@@ -138,10 +131,7 @@ public class SimulatorView extends JFrame
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
         fieldView.repaint();
     }
-    //returns false for night time and true for day time
-    public boolean isDay(){
-        return isDay;
-    }
+    
     /**
      * Determine whether the simulation should continue to run.
      * @return true If there is more than one species alive.
