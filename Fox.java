@@ -36,11 +36,11 @@ public class Fox extends Predator
     public Fox(boolean randomAge, Field field, Location location, boolean gender)
     {
         super(randomAge, field, location, gender);
-        setBreedingProbabilty(0.18);
-        setMaxAge(45);
-        setMaxLitterSize(4);
+        setBreedingProbabilty(0.08);
+        setMaxAge(150);
+        setMaxLitterSize(2);
         setBreedingAge(15);
-        setFoodLevel(15);
+        setFoodLevel(9);
         if(randomAge) {
             age = rand.nextInt(getMaxAge());
             foodLevel = rand.nextInt(RABBIT_FOOD_VALUE);
@@ -64,23 +64,23 @@ public class Fox extends Predator
        incrementHunger();
        if(isDay){
            if(isAlive()) {
-                giveBirth(newFoxes);            
-                // Move towards a source of food if found.
-                Location newLocation = findFood();
-                if(newLocation == null) { 
-                    // No food found - try to move to a free location.
-                    newLocation = getField().freeAdjacentLocation(getLocation());
-                }
-                // See if it was possible to move.
-                if(newLocation != null) {
-                    setLocation(newLocation);
-                }
-                else {
-                    // Overcrowding.
-                    setDead();
-                }
-            }  
-        }
+            giveBirth(newFoxes);            
+            // Move towards a source of food if found.
+            Location newLocation = findFood();
+            if(newLocation == null) { 
+                // No food found - try to move to a free location.
+                newLocation = getField().freeAdjacentLocation(getLocation());
+            }
+            // See if it was possible to move.
+            if(newLocation != null) {
+                setLocation(newLocation);
+            }
+            else {
+                // Overcrowding.
+                setDead();
+            }
+           }
+       }
     }
     
     /**
@@ -100,7 +100,7 @@ public class Fox extends Predator
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isAlive()) { 
                     rabbit.setDead();
-                    System.out.println("Rabbit has been eaten by fox");
+                    //System.out.println("Rabbit has been eaten by fox");
                     foodLevel = RABBIT_FOOD_VALUE;
                     return where;
                 }
@@ -109,7 +109,7 @@ public class Fox extends Predator
                 Chicken chicken = (Chicken) animal;
                 if(chicken.isAlive()){
                     chicken.setDead();
-                    System.out.println("Chicken has been eaten by fox");
+                    //System.out.println("Chicken has been eaten by fox");
                     foodLevel = CHICKEN_FOOD_VALUE;
                     return where;   
                 }
@@ -138,7 +138,7 @@ public class Fox extends Predator
                 //System.out.println("Test");
                 if(canIMate(nextToMe)){
                     int births = breed();
-                    System.out.println("Foxes have bred");
+                    //System.out.println("Foxes have bred");
                     for(int b = 0; b < births && free.size() > 0; b++) {
                         if(free.size() == 0){
                             break;

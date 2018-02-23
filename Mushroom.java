@@ -18,8 +18,8 @@ public class Mushroom extends Plant
     {
         super(randomAge, field, location);
         setMaxAge(15);
-        setMaxSporeSize(4);
-        setBreedingProbabilty(0.30);
+        setMaxSporeSize(6);
+        setBreedingProbabilty(10);
         setBreedingAge(5);
         if(randomAge){
             age = rand.nextInt(getMaxAge());
@@ -37,16 +37,9 @@ public class Mushroom extends Plant
     {
         incrementAge(getMaxAge());
         if(isAlive()) {
-            giveBirth(newMushrooms);            
-            // Try to move into a free location.
-            Location newLocation = getField().freeAdjacentLocation(getLocation());
-            if(newLocation != null) {
-                setLocation(newLocation);
-            }
-            else {
-                // Overcrowding.
-                setDead();
-            }
+            giveBirth(newMushrooms);
+        }else {
+            setDead();
         }
     }
     

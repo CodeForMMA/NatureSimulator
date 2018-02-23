@@ -19,15 +19,15 @@ public class Simulator
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.03;
+    private static final double FOX_CREATION_PROBABILITY = 0.02;
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;   
     // The probability that a chicken will be created in any given grid position.
-    private static final double CHICKEN_CREATION_PROBABILITY = 0.10; 
+    private static final double CHICKEN_CREATION_PROBABILITY = 0.08; 
     // The probability that a Wolf will be created in any given grid position.
     private static final double WOLF_CREATION_PROBABILITY = 0.02; 
     // The probability that a Wolf will be created in any given grid position.
-    private static final double MUSHROOM_CREATION_PROBABILITY = 0.05; 
+    private static final double MUSHROOM_CREATION_PROBABILITY = 0.08; 
      
     // List of animals in the field.
     private List<Species> species;
@@ -51,6 +51,7 @@ public class Simulator
     {
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
         weather = "Sunny";
+        isItDay = true;
 
     }
     
@@ -83,14 +84,14 @@ public class Simulator
         reset();
     }
     
-    /** returns a boolean value for night and day 
+    /** 
      * 
      * returns a boolean value for it being time and day 
      */
     private void isDay(){
-        if(step % 24 == 0){
-            isItDay = false;
-        } else {
+       if(step % 24 == 0){
+           isItDay = false;
+        } else if (step % 12 == 0) {
             isItDay = true;
         }
     }
@@ -124,7 +125,7 @@ public class Simulator
     {
         for(int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
-            delay(200);   // uncomment this to run more slowly
+            delay(150);   // uncomment this to run more slowly
         }
     }
    
@@ -137,8 +138,8 @@ public class Simulator
     public void simulateOneStep()
     {
         step++;
-        isItDay = true;
         changeWeather();
+        isDay();
         // Provide space for newborn animals.
         List<Species> newSpecies = new ArrayList<>();        
         // Let all rabbits act.

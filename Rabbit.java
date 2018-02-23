@@ -7,7 +7,7 @@ import java.util.*;
  * @author David J. Barnes and Michael Kölling
  * @version 2016.02.29 (2)
  */
-public class Rabbit extends Prey
+public class Rabbit extends Prey implements DiseaseProne
 {
     // Characteristics shared by all rabbits (class variables).
     // A shared random number generator to control breeding.
@@ -16,9 +16,13 @@ public class Rabbit extends Prey
     private boolean canWeMate;
     
     // Individual characteristics (instance fields).
-    private static final int MUSHROOM_FOOD_VALUE = 3;
+    private static final int MUSHROOM_FOOD_VALUE = 5;
     
+    private static final double DISEASE_PROBABILITY = 0.3;
+    private static final double RECOVER_PROBABILITY = 0.4;
+    private static final double DEATH_PROBABILITY = 0.6;
     
+    private boolean hasDisease = false;
 
     /**
      * Create a new rabbit. A rabbit may be created with age
@@ -31,11 +35,11 @@ public class Rabbit extends Prey
     public Rabbit(boolean randomAge, Field field, Location location, boolean gender)
     {
         super(randomAge, field, location, gender);
-        setBreedingProbabilty(0.15);
-        setMaxAge(25);
-        setMaxLitterSize(4);
+        setBreedingProbabilty(0.24);
+        setMaxAge(40);
+        setMaxLitterSize(8);
         setBreedingAge(10);
-        setFoodLevel(15);
+        setFoodLevel(5);
         if(randomAge) {
             age = rand.nextInt(getMaxAge());
         }
@@ -55,17 +59,20 @@ public class Rabbit extends Prey
         incrementHunger();
         if(isAlive()) {
             giveBirth(newRabbits);            
-            // Try to move into a free location.
-           // if(!weather.equals("Fog")){
-                 Location newLocation = getField().freeAdjacentLocation(getLocation());
+            // Move towards a source of food if found.
+            Location newLocation = findFood();
+            if(newLocation == null){
+                //No food here
+                newLocation = getField().freeAdjacentLocation(getLocation());
+            }
+            // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
             }
             else {
-                // Overcrowding.
-                setDead();
+            // Overcrowding.
+            setDead();
             }
-       // }
         }
     }
     
@@ -135,13 +142,45 @@ public class Rabbit extends Prey
             Object plant = field.getObjectAt(where);
             if(plant instanceof Mushroom) {
                 Mushroom mushroom = (Mushroom) plant;
-                if(mushroom.isAlive()) { 
+                if(mushroom.isAlive()) {
+                    getDisease();
                     mushroom.setDead();
                     foodLevel = MUSHROOM_FOOD_VALUE;
-                    return where;
                 }
             }
+            return where;
         } 
         return null;
+    }
+    
+    /**
+     * Checks if the animal has a disease
+     */
+   private void amIInfected (boolean hasDisease){
+       if(hasDisease) {
+           boolean death = die();
+           boolean heal = heal();
+           if(death) {
+               setDead();
+               System.out.println("Has died from disease");
+            } else if(heal) {
+                hasDisease = false;
+                System.out.println("Has healed from disease");
+            }
+        }
+    }
+    
+    public void getDisease() {
+        hasDisease = (rand.nextDouble() <= DISEASE_PROBABILITY ? true : false);
+        System.out.println("Has disease: " + hasDisease);
+    }
+    public boolean hasDisease() {
+        return hasDisease;
+    }
+    public boolean heal() {
+         return (rand.nextDouble() <= RECOVER_PROBABILITY ? true : false);
+    }
+    public boolean die() {
+        return (rand.nextDouble() <= DEATH_PROBABILITY ? true : false);
     }
 }

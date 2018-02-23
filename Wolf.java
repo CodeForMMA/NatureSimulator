@@ -11,17 +11,17 @@ public class Wolf extends Predator
 {
     // instance variables - replace the example below with your own
     // Characteristics shared by all wolves (class variables).
-    
+
     // The food value of a single rabbit. In effect, this is the
     // number of steps a wolf can go before it has to eat again.
     private static final int RABBIT_FOOD_VALUE = 9;
-    private static final int CHICKEN_FOOD_VALUE = 10;
+    private static final int CHICKEN_FOOD_VALUE = 9;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     //Checks if they can mate
     private boolean canWeMate;    
     private boolean gender;
-    
+
     // Individual characteristics (instance fields).
 
     /**
@@ -49,7 +49,7 @@ public class Wolf extends Predator
             foodLevel = RABBIT_FOOD_VALUE;
         }
     }
-    
+
     /**
      * This is what the wolf does most of the time: it hunts for
      * rabbits. In the process, it might breed, die of hunger,
@@ -62,26 +62,26 @@ public class Wolf extends Predator
         incrementAge(getMaxAge());
         incrementHunger();
         if(isDay){
-                if(isAlive()) {
-                    giveBirth(newWolves);            
-                    // Move towards a source of food if found.
-                    Location newLocation = findFood();
-                    if(newLocation == null) { 
-                        // No food found - try to move to a free location.
-                        newLocation = getField().freeAdjacentLocation(getLocation());
-                    }
-                    // See if it was possible to move.
-                    if(newLocation != null) {
+            if(isAlive()) {
+                giveBirth(newWolves);            
+                // Move towards a source of food if found.
+                Location newLocation = findFood();
+                if(newLocation == null) { 
+                    // No food found - try to move to a free location.
+                    newLocation = getField().freeAdjacentLocation(getLocation());
+                }
+                // See if it was possible to move.
+                if(newLocation != null) {
                     setLocation(newLocation);
                 }
-                    else {
+                else {
                     // Overcrowding.
                     setDead();
                 }
-            }   
-        }
+            }
+        }   
     }
-    
+
     /**
      * Look for rabbits adjacent to the current location.
      * Only the first live rabbit is eaten.
@@ -103,7 +103,7 @@ public class Wolf extends Predator
                     return where;
                 }
             }
-        
+
             else if (animal instanceof Chicken) {
                 Chicken chicken = (Chicken) animal;
                 if(chicken.isAlive()){
@@ -115,7 +115,7 @@ public class Wolf extends Predator
         } 
         return null;
     }
-    
+
     /**
      * Check whether or not this Wolf is to give birth at this step.
      * New births will be made into free adjacent locations.
@@ -125,7 +125,7 @@ public class Wolf extends Predator
     {
         // New Wolfes are born into adjacent locations.
         // Get a list of adjacent free locations.
-        
+
         Field field = getField();
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
         List<Location> whatIsNext = field.adjacentLocations(getLocation());
@@ -135,7 +135,7 @@ public class Wolf extends Predator
             if (nextToMe != null){
                 if(canIMate(nextToMe)){
                     int births = breed();
-                    System.out.println("Wolves have bred");
+                    //System.out.println("Wolves have bred");
                     for(int b = 0; b < births && free.size() > 0; b++) {
                         if(free.size() == 0){
                             break;
@@ -148,7 +148,7 @@ public class Wolf extends Predator
             }
         }
     }
-    
+
     /**
      * Checks the surrounding animal if they of the same sex
      * @return Boolean
@@ -167,6 +167,5 @@ public class Wolf extends Predator
         }
         return canWeMate;
     }
-        
-   
+
 }

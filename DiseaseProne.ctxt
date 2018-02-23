@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=DiseaseProne
+comment0.text=\n\ Write\ a\ description\ of\ interface\ DiseaseProne\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=void\ getDisease()
+comment2.params=
+comment2.target=boolean\ hasDisease()
+comment3.params=
+comment3.target=boolean\ heal()
+comment4.params=
+comment4.target=boolean\ die()
+numComments=5

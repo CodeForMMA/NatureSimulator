@@ -16,7 +16,7 @@ public class Chicken extends Prey
     //Checks if they can mate
     private boolean canWeMate;
     
-    private static final int MUSHROOM_FOOD_VALUE = 3;
+    private static final int MUSHROOM_FOOD_VALUE = 5;
     
     // Individual characteristics (instance fields).
 
@@ -31,11 +31,11 @@ public class Chicken extends Prey
     public Chicken(boolean randomAge, Field field, Location location, boolean gender)
     {
         super(randomAge, field, location, gender);
-        setBreedingProbabilty(0.2);
-        setMaxAge(15);
-        setMaxLitterSize(4);
-        setBreedingAge(5);
-        setFoodLevel(15);
+        setBreedingProbabilty(0.24);
+        setMaxAge(40);
+        setMaxLitterSize(8);
+        setBreedingAge(10);
+        setFoodLevel(5);
         if(randomAge) {
             age = rand.nextInt(getMaxAge());
         }
@@ -51,12 +51,18 @@ public class Chicken extends Prey
      */
     public void act(List<Species> newChickens, boolean isDay, String weather)
     {
+        {
         incrementAge(getMaxAge());
         incrementHunger();
         if(isAlive()) {
             giveBirth(newChickens);            
-            // Try to move into a free location.
-            Location newLocation = getField().freeAdjacentLocation(getLocation());
+            // Move towards a source of food if found.
+            Location newLocation = findFood();
+            if(newLocation == null) { 
+                // No food found - try to move to a free location.
+                newLocation = getField().freeAdjacentLocation(getLocation());
+            }
+            // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
             }
@@ -65,6 +71,7 @@ public class Chicken extends Prey
                 setDead();
             }
         }
+    }
     }
 
     /**
@@ -86,7 +93,7 @@ public class Chicken extends Prey
             if (nextToMe != null){
                 if(canIMate(nextToMe)){
                     int births = breed();
-                    System.out.println("Chickens have bred");
+                    //System.out.println("Chickens have bred");
                     for(int b = 0; b < births && free.size() > 0; b++) {
                         if(free.size() == 0){
                             break;
