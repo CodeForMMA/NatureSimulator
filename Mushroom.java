@@ -1,14 +1,14 @@
 import java.util.*;
 /**
- * Write a description of class Mushroom here.
+ * Mushrooms die and breed.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Mansour Jalaly K1763921
+ * @version 23.02.2018
  */
 public class Mushroom extends Plant
 {
     // instance variables - replace the example below with your own
-    private int x;
+    
     private static final Random rand = Randomizer.getRandom();
 
     /**
@@ -37,12 +37,14 @@ public class Mushroom extends Plant
     {
         incrementAge(getMaxAge());
         if(isAlive()) {
+            System.out.println("Mushroom givenBirth");
             giveBirth(newMushrooms);
         }else {
             setDead();
+            System.out.println("Mushroom has died");
         }
     }
-    
+
     /**
      * Check whether or not this mushroom is to give birth at this step.
      * New births will be made into free adjacent locations.
@@ -54,11 +56,15 @@ public class Mushroom extends Plant
         // Get a list of adjacent free locations.
         Field field = getField();
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            Mushroom young = new Mushroom(false, field, loc);
-            newMushrooms.add(young);
+        Location newLocation = getField().freeAdjacentLocation(getLocation());
+        if (newLocation != null){
+            int births = breed();
+            for(int b = 0; b < births && free.size() > 0; b++) {
+                Location loc = free.remove(0);
+                Mushroom young = new Mushroom(false, field, loc);
+                newMushrooms.add(young);
+                setLocation(newLocation);
+            }
         }
     }
     

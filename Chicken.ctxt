@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Chicken
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Chicken\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Chickens\ move,\ breed,\ die,\ and\ eat\r\n\ \r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=randomAge\ field\ location\ gender
 comment1.target=Chicken(boolean,\ Field,\ Location,\ boolean)
 comment1.text=\r\n\ Create\ a\ new\ chicken.\ A\ chicken\ may\ be\ created\ with\ age\r\n\ zero\ (a\ new\ born)\ or\ with\ a\ random\ age.\r\n\ \r\n\ @param\ randomAge\ If\ true,\ the\ chicken\ will\ have\ a\ random\ age.\r\n\ @param\ field\ The\ field\ currently\ occupied.\r\n\ @param\ location\ The\ location\ within\ the\ field.\r\n

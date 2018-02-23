@@ -2,10 +2,11 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
 /**
- * Write a description of class Wolf here.
+ * Wolf Class, 
+ * Wolves breed, eat, die, age and move.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Mansour Jalaly
+ * @version 23.02.2018
  */
 public class Wolf extends Predator
 {

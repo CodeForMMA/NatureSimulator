@@ -1,9 +1,9 @@
 import java.util.*;
 /**
- * Abstract class Plants - write a description of the class here
+ * Abstract class Plants - Contains all the characteristics of plants
  *
- * @author (your name here)
- * @version (version number or date here)
+ * @author Mansour Jalaly K1763921
+ * @version 23.02.2018
  */
 public abstract class Plant extends Species
 {

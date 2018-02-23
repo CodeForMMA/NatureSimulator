@@ -2,9 +2,9 @@ import java.util.*;
 
 /**
  * A simple model of a rabbit.
- * Rabbits age, move, breed, and die.
+ * Rabbits age, move, breed, and die, eat.
  * 
- * @author David J. Barnes and Michael Kölling
+ * @author Mansour Jalaly K1763921
  * @version 2016.02.29 (2)
  */
 public class Rabbit extends Prey implements DiseaseProne
@@ -95,6 +95,7 @@ public class Rabbit extends Prey implements DiseaseProne
             if (nextToMe != null){
                 if(canIMate(nextToMe)){
                     int births = breed();
+                    System.out.println("Rabbits have bred");
                     for(int b = 0; b < births && free.size() > 0; b++) {
                         if(free.size() == 0){
                             break;
@@ -170,16 +171,34 @@ public class Rabbit extends Prey implements DiseaseProne
         }
     }
     
+    /**
+     * Assigns hasDisease with a boolean if they get the disease
+     */
     public void getDisease() {
         hasDisease = (rand.nextDouble() <= DISEASE_PROBABILITY ? true : false);
         System.out.println("Has disease: " + hasDisease);
     }
+    
+    /**
+     * Checks if the animal has a disease
+     * @return true if it has the disease false if it does not
+     */
     public boolean hasDisease() {
         return hasDisease;
     }
+    
+    /**
+     * The chance of the animal healing
+     * @return true if healed, false if not
+     */
     public boolean heal() {
          return (rand.nextDouble() <= RECOVER_PROBABILITY ? true : false);
     }
+    
+    /**
+     * The chance of the animal dying
+     * @return true if the animal dies, false if the animal does not die
+     */
     public boolean die() {
         return (rand.nextDouble() <= DEATH_PROBABILITY ? true : false);
     }

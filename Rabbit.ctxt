@@ -1,11 +1,12 @@
 #BlueJ class context
 comment0.target=Rabbit
-comment0.text=\r\n\ A\ simple\ model\ of\ a\ rabbit.\r\n\ Rabbits\ age,\ move,\ breed,\ and\ die.\r\n\ \r\n\ @author\ David\ J.\ Barnes\ and\ Michael\ K\u00F6lling\r\n\ @version\ 2016.02.29\ (2)\r\n
+comment0.text=\r\n\ A\ simple\ model\ of\ a\ rabbit.\r\n\ Rabbits\ age,\ move,\ breed,\ and\ die,\ eat.\r\n\ \r\n\ @author\ Mansour\ Jalaly\ K1763921\r\n\ @version\ 2016.02.29\ (2)\r\n
 comment1.params=randomAge\ field\ location\ gender
 comment1.target=Rabbit(boolean,\ Field,\ Location,\ boolean)
 comment1.text=\r\n\ Create\ a\ new\ rabbit.\ A\ rabbit\ may\ be\ created\ with\ age\r\n\ zero\ (a\ new\ born)\ or\ with\ a\ random\ age.\r\n\ \r\n\ @param\ randomAge\ If\ true,\ the\ rabbit\ will\ have\ a\ random\ age.\r\n\ @param\ field\ The\ field\ currently\ occupied.\r\n\ @param\ location\ The\ location\ within\ the\ field.\r\n
 comment10.params=
 comment10.target=boolean\ die()
+comment10.text=\r\n\ The\ chance\ of\ the\ animal\ dying\r\n\ @return\ true\ if\ the\ animal\ dies,\ false\ if\ the\ animal\ does\ not\ die\r\n
 comment2.params=newRabbits\ isDay\ weather
 comment2.target=void\ act(java.util.List,\ boolean,\ java.lang.String)
 comment2.text=\r\n\ This\ is\ what\ the\ rabbit\ does\ most\ of\ the\ time\ -\ it\ runs\ \r\n\ around.\ Sometimes\ it\ will\ breed\ or\ die\ of\ old\ age.\r\n\ @param\ newRabbits\ A\ list\ to\ return\ newly\ born\ rabbits.\r\n
@@ -23,8 +24,11 @@ comment6.target=void\ amIInfected(boolean)
 comment6.text=\r\n\ Checks\ if\ the\ animal\ has\ a\ disease\r\n
 comment7.params=
 comment7.target=void\ getDisease()
+comment7.text=\r\n\ Assigns\ hasDisease\ with\ a\ boolean\ if\ they\ get\ the\ disease\r\n
 comment8.params=
 comment8.target=boolean\ hasDisease()
+comment8.text=\r\n\ Checks\ if\ the\ animal\ has\ a\ disease\r\n\ @return\ true\ if\ it\ has\ the\ disease\ false\ if\ it\ does\ not\r\n
 comment9.params=
 comment9.target=boolean\ heal()
+comment9.text=\r\n\ The\ chance\ of\ the\ animal\ healing\r\n\ @return\ true\ if\ healed,\ false\ if\ not\r\n
 numComments=11

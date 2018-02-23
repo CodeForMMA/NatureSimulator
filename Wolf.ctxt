@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Wolf
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Wolf\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Wolf\ Class,\ \r\n\ Wolves\ breed,\ eat,\ die,\ age\ and\ move.\r\n\r\n\ @author\ Mansour\ Jalaly\r\n\ @version\ 23.02.2018\r\n
 comment1.params=randomAge\ field\ location\ gender
 comment1.target=Wolf(boolean,\ Field,\ Location,\ boolean)
 comment1.text=\r\n\ Create\ a\ wolf.\ A\ wolf\ can\ be\ created\ as\ a\ new\ born\ (age\ zero\r\n\ and\ not\ hungry)\ or\ with\ a\ random\ age\ and\ food\ level.\r\n\ \r\n\ @param\ randomAge\ If\ true,\ the\ wolf\ will\ have\ random\ age\ and\ hunger\ level.\r\n\ @param\ field\ The\ field\ currently\ occupied.\r\n\ @param\ location\ The\ location\ within\ the\ field.\r\n

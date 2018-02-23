@@ -27,7 +27,7 @@ public class Simulator
     // The probability that a Wolf will be created in any given grid position.
     private static final double WOLF_CREATION_PROBABILITY = 0.02; 
     // The probability that a Wolf will be created in any given grid position.
-    private static final double MUSHROOM_CREATION_PROBABILITY = 0.08; 
+    private static final double MUSHROOM_CREATION_PROBABILITY = 0.3; 
      
     // List of animals in the field.
     private List<Species> species;

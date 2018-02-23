@@ -1,6 +1,7 @@
 import java.util.*;
 /**
- * Write a description of class Chicken here.
+ * Chickens move, breed, die, and eat
+ * 
  *
  * @author (your name)
  * @version (a version number or a date)

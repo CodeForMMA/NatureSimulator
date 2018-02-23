@@ -1,10 +1,10 @@
 import java.util.*;
 
 /**
- * Abstract class Predator - write a description of the class here
+ * Abstract class Predator - This class contains all the characteristic of a predetor
  *
- * @author (your name here)
- * @version (version number or date here)
+ * @author Mansour Jalaly K1763921
+ * @version 23.02.2018
  */
 public abstract class Predator extends Species 
 {
@@ -34,11 +34,8 @@ public abstract class Predator extends Species
     protected int foodLevel;
 
     public Predator (Boolean randomAge, Field field, Location location, boolean gender){
-        
         super(field, location);
         this.gender = gender;
-        
-        
     }
     
     public static int getMaxLitterSize() {
