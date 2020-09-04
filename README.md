@@ -1,6 +1,6 @@
 # King's College London Project
 
-<p align="center">![pic alt](./img/8bit.png "opt title")</p>
+<p align="center"><img src="./img/8bit.png"></p>
 
 ## Nature Simulator 
 This project was a paired programming assignment from Dr Michael Kolling,
